@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Board
 {
+
     /**
      * creates an empty playing board (filled with 0's)
      *
@@ -106,7 +107,7 @@ public class Board
                 //and fill in each plot of island
                 for (int y = 0; y < height; y++)
                 {
-                    board[yPos + y][xPos + x] = 3;
+                    board[yPos + y][xPos + x] = 1;
                 }
             }
         }
