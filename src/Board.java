@@ -3,7 +3,7 @@ import java.util.Random;
 public class Board
 {
     /**
-     * creates an empty playing board
+     * creates an empty playing board (filled with 0's)
      *
      * @param rows number of rows in the board
      * @param columns number of columns in the board
@@ -11,10 +11,7 @@ public class Board
      */
     public static int[][] generateBoard(int rows, int columns)
     {
-        //create an empty board
-        int[][] board = new int[rows][columns];
-
-        return board;
+        return new int[rows][columns];
     }
 
     /**
@@ -46,7 +43,6 @@ public class Board
      * @param xBorder    the distance between the islands and the horizontal edges of the map
      * @param yBorder    the distance between the islands and the vertical edges of the map
      * @param islandSize size of the island
-     * @return the board with start and end islands added
      */
     public static void generateStartEnd(int[][] board, int xBorder, int yBorder, int islandSize)
     {
@@ -55,18 +51,23 @@ public class Board
 
         //create random coordinates for the starting island, use island's top left corner to position
         int startX = xBorder; //start island x pos is not randomized
-        int startY = yBorder + rand.nextInt(boardHeight(board) - yBorder);
+        int startY = yBorder + rand.nextInt(boardHeight(board) - 1 - yBorder - islandSize);
 
 
         //create random coordinates for the starting island, use island's top left corner to position
-        int endX = boardLength(board) - xBorder - 1; //end island x pos is not randomized
-        int endY = yBorder + rand.nextInt(boardHeight(board) - yBorder);
+        int endX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
+        int endY = yBorder + rand.nextInt(boardHeight(board) - 1 - yBorder - islandSize);
+        System.out.println(endX);
+        System.out.println(endY);
 
         //add in islands of appropriate size
-        for (int l = 0; l < islandSize; l++)
+        for (int x = 0; x < islandSize; x++)
         {
-            board[startY + l][startX + l] = 0;
-            board[endY + l][endX + l] = 0;
+            for (int y = 0; y < islandSize; y++)
+            {
+                board[startY + y][startX + x] = 1;
+                board[endY + y][endX + x] = 1;
+            }
         }
     }
 
