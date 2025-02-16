@@ -110,9 +110,42 @@ public class Board
                 //and fill in each plot of island
                 for (int y = 0; y < height; y++)
                 {
-                    board[yPos + y][xPos + x] = 3;
+                    board[yPos + y][xPos + x] = generateBonuses(rand);
                 }
             }
+        }
+    }
+
+    /**
+     * generates either a hazard, a power up, or nothing at all
+     *
+     * @param rand Random object for probability
+     * @return 3 if nothing, -2 if power up, and -3 if hazard
+     */
+    public static int generateBonuses(Random rand)
+    {
+        /////////////////// PROBABILITY CHART ////////////////////////////
+        /// 60% nothing spawns
+        /// 30% hazard spawns
+        /// 10% power up spawns
+        /////////////////// EFFECTS //////////////////////////////////////
+        /// nothing: nothing
+        /// hazard: uncrossable, acts as a wall
+        /// power up: decreases total step count
+
+        //use a random number to decide what spawns
+        int roll  = 1 + rand.nextInt(10);
+
+        //now create the appropriate tile
+        if (roll <= 6) //if nothing spawns...
+        {
+            return 3;
+        }else if (roll <= 9) //if hazard spawns...
+        {
+            return -3;
+        }else //if hazard spawns...
+        {
+            return -2;
         }
     }
 
