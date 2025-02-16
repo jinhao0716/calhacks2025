@@ -10,37 +10,37 @@ public class Graphic implements ActionListener {
     /*
      Global Variables
      */
-    private int rows;
-    private int columns;
-    private int score = 1000;
-    private String endText = "";
-    private JButton[][] board;
-    private JFrame frame = new JFrame();
-    private JPanel panel1 = new JPanel();
-    private JPanel panel2 = new JPanel();
-    private JLabel turn = new JLabel("Blue's Turn.", SwingConstants.CENTER);
-    private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
-    private JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
-    private JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
+    private static int rows;
+    private static int columns;
+    private static int score = 1000;
+    private static String endText = "";
+    private static JButton[][] board;
+    private static JFrame frame = new JFrame();
+    private static JPanel panel1 = new JPanel();
+    private static JPanel panel2 = new JPanel();
+    private static JLabel turn = new JLabel("Blue's Turn.", SwingConstants.CENTER);
+    private static JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
+    private static JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
+    private static JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
     /*
     Colors
      */
-    private final Color white = new Color(255, 255, 255);
-    private final Color red = new Color(170, 0, 0);
-    private final Color redGoal = new Color(255, 30, 50);
-    private final Color blue = new Color(0, 30, 170);
-    private final Color blueGoal = new Color(0, 0, 255);
-    private final Color yellow = new Color(250, 250, 0);
-    private final Color grey = new Color(128, 128, 128);
-    private final Color green = new Color(0, 128, 0);
-    private final Color black = new Color(0, 0, 0);
-    private final ImageIcon player1 = new ImageIcon("PlayerImages/player1.png");
-    private final ImageIcon player2 = new ImageIcon("PlayerImages/player2.png");
+    private static final Color white = new Color(255, 255, 255);
+    private static final Color red = new Color(170, 0, 0);
+    private static final Color redGoal = new Color(255, 30, 50);
+    private static final Color blue = new Color(0, 30, 170);
+    private static final Color blueGoal = new Color(0, 0, 255);
+    private static final Color yellow = new Color(250, 250, 0);
+    private static final Color grey = new Color(128, 128, 128);
+    private static final Color green = new Color(0, 128, 0);
+    private static final Color black = new Color(0, 0, 0);
+    private static final ImageIcon player1 = new ImageIcon("PlayerImages/player1.png");
+    private static final ImageIcon player2 = new ImageIcon("PlayerImages/player2.png");
 
     public Graphic(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.board = new JButton[rows][columns];
+        Graphic.rows = rows;
+        Graphic.columns = columns;
+        Graphic.board = new JButton[rows][columns];
 
         /*
         Initializes the JFrame, sets window size to 2000x1000
@@ -165,7 +165,7 @@ public class Graphic implements ActionListener {
     /*
     Updates the visuals of the board, called when a tile is clicked
      */
-    public void updateBoard() {
+    public static void updateBoard() {
         //initializes the JButtons which will be the grids for the board
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
