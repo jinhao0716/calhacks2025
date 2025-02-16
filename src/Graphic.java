@@ -19,7 +19,7 @@ public class Graphic implements ActionListener {
     private static JPanel panel1 = new JPanel();
     private static JPanel panel2 = new JPanel();
     private static JPanel panel3 = new JPanel();
-    private static JLabel turn = new JLabel("Blue's Turn.", SwingConstants.CENTER);
+    private static JLabel turn = new JLabel("Red's Turn.", SwingConstants.CENTER);
     private static JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     private static JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
     private static JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
@@ -283,7 +283,7 @@ public class Graphic implements ActionListener {
             right = false;
         }
 
-        if(turn == 0){
+        if(turn == 1){
             if (up){
                 if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4 || (Game.gameboard[row - 1][col]) == 14 || (Game.gameboard[row - 1][col]) == 24){
                     check = true;
@@ -306,7 +306,7 @@ public class Graphic implements ActionListener {
             }
         }
 
-        if(turn == 1){
+        if(turn == 0){
             if (up){
                 if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5 || (Game.gameboard[row - 1][col]) == 15 || (Game.gameboard[row - 1][col]) == 25){
                     check = true;
@@ -365,11 +365,11 @@ public class Graphic implements ActionListener {
                 if (board[i][j].getModel().isRollover()) {
                     if(Game.turn == 0){
                         if(checkAdjacent(i,j,0)){
-                            Game.gameboard[i][j] = 1;
+                            Game.gameboard[i][j] = 2;
                             updateBoard();
                             board[i][j].removeActionListener(this);
                             Game.turn = 1;
-                            turn.setText("Red's Turn.");
+                            turn.setText("Blue's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
@@ -377,11 +377,11 @@ public class Graphic implements ActionListener {
                         }
                     }else if(Game.turn == 1){
                         if(checkAdjacent(i,j,1)){
-                            Game.gameboard[i][j] = 2;
+                            Game.gameboard[i][j] = 1;
                             updateBoard();
                             board[i][j].removeActionListener(this);
                             Game.turn = 0;
-                            turn.setText("Blue's Turn.");
+                            turn.setText("Red's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
