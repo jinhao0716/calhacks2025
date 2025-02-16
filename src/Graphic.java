@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Graphic implements ActionListener {
-    //Global variables
+    /*
+     Global Variables
+     */
     private int rows;
     private int columns;
     private int score = 1000;
@@ -20,7 +22,9 @@ public class Graphic implements ActionListener {
     private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     private JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
     private JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
-    //Colors
+    /*
+    Colors
+     */
     private final Color white = new Color(255, 255, 255);
     private final Color red = new Color(170, 30, 0);
     private final Color redGoal = new Color(255, 30, 0);
@@ -35,15 +39,28 @@ public class Graphic implements ActionListener {
         this.rows = rows;
         this.columns = columns;
         this.board = new JButton[rows][columns];
-        //JFrame setup, first time doing this idk what they do
+
+        /*
+        Initializes the JFrame, sets window size to 2000x1000
+         */
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(2000,1000);
-        //Sets the grid layout of the frame to the number of indicated rows and columns
+
+        /*
+        Sets the JFrame layout to BorderLayout and names the window
+         */
         frame.setLayout(new BorderLayout());
         frame.setTitle("BridgeGame");
 
+        /*
+        panel1 holds the game board, creates a board with tiles based on dimensions set
+        Uses GridLayout
+         */
         panel1.setLayout(new GridLayout(rows, columns));
 
+        /*
+        panel2 shows score, who's turn it is, and steps taken
+         */
         panel2.setLayout(new GridLayout(1, 5));
         panel2.setPreferredSize(new Dimension(2000,50));
         turn.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -55,6 +72,9 @@ public class Graphic implements ActionListener {
         panel2.add(new JLabel(""));
         panel2.add(steps);
 
+        /*
+        Initializes the game board taken from Game,java
+         */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 board[i][j] = new JButton("");
@@ -92,17 +112,25 @@ public class Graphic implements ActionListener {
             }
         }
 
-        //adds the buttons to the board
+        /*
+        adds the buttons to the board
+         */
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 panel1.add(board[i][j]);
             }
         }
+        /*
+        adds the panels to the frame
+         */
         frame.add(panel2, BorderLayout.NORTH);
         frame.add(panel1);
         frame.setVisible(true);
     }
 
+    /*
+    Updates the visuals of the board, called when a tile is clicked
+     */
     public void updateBoard() {
         //initializes the JButtons which will be the grids for the board
         for (int i = 0; i < rows; i++) {
@@ -142,6 +170,9 @@ public class Graphic implements ActionListener {
 
     }
 
+    /*
+    Calculates the players' current score
+     */
     public void calculateScore() {
         score = 1000 - Game.stepsTaken * 34;
         if(score > 1000){
@@ -152,6 +183,10 @@ public class Graphic implements ActionListener {
         }
     }
 
+    /*
+    Checks if there is a valid adjacent tile for the tile to be placed
+    Valid tiles are tiles of the same color, the other player's end island, or neutral tiles
+     */
     public boolean checkAdjacent(int row, int col, int turn) {
         boolean check = false;
 
@@ -220,6 +255,9 @@ public class Graphic implements ActionListener {
         return check;
     }
 
+    /*
+    Displays the end game screen
+     */
     public void gameOver() {
         if (score < 200){
             endText = "Your Final Score: \n" + score + "\nBetter luck next time!";
@@ -234,7 +272,9 @@ public class Graphic implements ActionListener {
         frame.remove(panel2);
         frame.add(endScreen);
     }
-    //Effects of what button presses do
+    /*
+    Makes changes based on what tile is clicked
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < rows; i++) {
