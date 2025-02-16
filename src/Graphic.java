@@ -250,7 +250,7 @@ public class Graphic implements ActionListener {
     Calculates the players' current score
      */
     public static void calculateScore() {
-        score = 1000 - Game.stepsTaken * 34;
+        score = 1000 - Game.stepsTaken * 17;
         if(score > 1000){
             score = 1000;
         }
