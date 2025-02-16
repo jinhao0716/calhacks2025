@@ -13,9 +13,10 @@ public class Graphic implements ActionListener {
     private int[][] gameBoard;
     private JButton[][] board;
     private JFrame frame = new JFrame();
-    private JPanel panel = new JPanel();
-    private JLabel redTurn = new JLabel("Red's Turn.");
-    private JLabel blueTurn = new JLabel("Blue's Turn.");
+    private JPanel panel1 = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JLabel turn = new JLabel("Red's Turn.", SwingConstants.CENTER);
+    private JLabel steps = new JLabel("Steps: " + GameRules.stepsTaken, SwingConstants.CENTER);
     //Colors
     private final Color white = new Color(255, 255, 255);
     private final Color red = new Color(200, 30, 0);
@@ -33,12 +34,20 @@ public class Graphic implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(2000,1000);
         //Sets the grid layout of the frame to the number of indicated rows and columns
-        frame.setLayout(new GridLayout(rows,columns));
+        frame.setLayout(new BorderLayout());
         frame.setTitle("Game");
 
-        panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
-        panel.setLayout(new GridLayout(0,1));
+        panel1.setLayout(new GridLayout(rows, columns));
 
+        panel2.setLayout(new GridLayout(1, 5));
+        panel2.setPreferredSize(new Dimension(2000,50));
+        turn.setFont(new Font("Arial", Font.PLAIN, 20));
+        steps.setFont(new Font("Arial", Font.PLAIN, 20));
+        panel2.add(new JLabel(""));
+        panel2.add(new JLabel(""));
+        panel2.add(turn);
+        panel2.add(new JLabel(""));
+        panel2.add(steps);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -64,9 +73,11 @@ public class Graphic implements ActionListener {
         //adds the buttons to the board
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                frame.add(board[i][j]);
+                panel1.add(board[i][j]);
             }
         }
+        frame.add(panel2, BorderLayout.NORTH);
+        frame.add(panel1);
         frame.setVisible(true);
     }
 
@@ -93,6 +104,7 @@ public class Graphic implements ActionListener {
         }
 
     }
+
     //Effects of what button presses do
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -104,11 +116,17 @@ public class Graphic implements ActionListener {
                         updateBoard();
                         board[i][j].removeActionListener(this);
                         GameRules.turn = 1;
+                        turn.setText("Blue's Turn.");
+                        GameRules.stepsTaken++;
+                        steps.setText("Steps: " + GameRules.stepsTaken);
                     }else if(GameRules.turn == 1){
                         gameBoard[i][j] = 2;
                         updateBoard();
                         board[i][j].removeActionListener(this);
                         GameRules.turn = 0;
+                        turn.setText("Red's Turn.");
+                        GameRules.stepsTaken++;
+                        steps.setText("Steps: " + GameRules.stepsTaken);
                     }
                 }
             }
