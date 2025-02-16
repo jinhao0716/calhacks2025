@@ -44,33 +44,33 @@ public class Board
      * @param yBorder the distance between the islands and the vertical edges of the map
      * @param islandSize size of the island
      */
-    public static void generateStartEndIslands(int[][] board, int xBorder, int yBorder, int islandSize)
+    public static void generateGoalIslands(int[][] board, int xBorder, int yBorder, int islandSize)
     {
         //create instance of random class for number generation
         Random rand = new Random();
 
         //create random coordinates for the starting island, use island's top left corner to position
-        int startX = xBorder; //start island x pos is not randomized
-        int startY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize));
+        int p2goalX = xBorder; //start island x pos is not randomized
+        int p2goalY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize));
 
 
         //create random coordinates for the starting island, use island's top left corner to position
-        int endX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
-        int endY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize - 1));
+        int p1goalX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
+        int p1goalY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize - 1));
 
         //add in islands of appropriate size
         for (int x = 0; x < islandSize; x++)
         {
             for (int y = 0; y < islandSize; y++)
             {
-                board[startY + y][startX + x] = 2;
-                board[endY + y][endX + x] = 1;
+                board[p2goalY + y][p2goalX + x] = 4;
+                board[p1goalY + y][p1goalX + x] = 5;
             }
         }
 
         //now add in the players
-        board[startY][startX] += 10;
-        board[endY + islandSize - 1][endX + islandSize - 1] += 20;
+        board[p2goalY][p2goalX] += 10;
+        board[p1goalY + islandSize - 1][p1goalX + islandSize - 1] += 20;
     }
 
     /**

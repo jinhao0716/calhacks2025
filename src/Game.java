@@ -5,6 +5,8 @@ public class Game
     ///////KEY///////
     /// 1 = player 1 land
     /// 2 = player 2 land
+    /// 5 = player 1 goal
+    /// 4 = player 2 goal
     /// 3 = neutral middle island land
     /// -3 = hazard
     /// -2 = power up
@@ -30,7 +32,7 @@ public class Game
 
         //create and fill the game board
         int[][] gameboard = Board.generateBoard(ROWS, COLUMNS);
-        Board.generateStartEndIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
+        Board.generateGoalIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
         Board.generateMidIslands(gameboard, XBORDER, ISLANDSIZE, BUFFER, ISLANDSNUMBER);
 
         /////////graphic stuff///////
@@ -111,8 +113,7 @@ public class Game
         }
 
         //store the coords in an array and return it
-        int[] coords = {playerX, playerY};
-        return coords;
+        return new int[]{playerX, playerY};
     }
 
     /**
@@ -179,8 +180,7 @@ public class Game
             }
         }while (!moved);
 
-        int[] newCoords = {playerNewX, playerNewY};
-        return  newCoords;
+        return new int[]{playerNewX, playerNewY};
     }
 
     /**
@@ -228,6 +228,27 @@ public class Game
         }
 
         //if reaching this point, then means player has not been moved
+        return false;
+    }
+
+    /**
+     * checks to see if a player has reached their goal island
+     *
+     * @param board the board on which the player is standing on
+     * @param curCoords the player's current coordinates
+     * @param player the player to be checked
+     * @return true if reached goal island, false if not
+     */
+    public static boolean goalReached(int[][] board, int[] curCoords, int player)
+    {
+        //check to see if the digits of the position (player + tile) sum up to 6...
+        if ((board[curCoords[1]][curCoords[0]] - 10*player) + player == 6)
+        {
+            //if they do, then it means that the player has successfully reached their goal island
+            return true;
+        }
+
+        //otherwise return false
         return false;
     }
 }
