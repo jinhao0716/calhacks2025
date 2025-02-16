@@ -287,22 +287,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 1){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4 || (Game.gameboard[row - 1][col]) == 14 || (Game.gameboard[row - 1][col]) == 24 || (Game.gameboard[row - 1][col]) == 13 || (Game.gameboard[row - 1][col]) == 23){
+                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4 || (Game.gameboard[row - 1][col]) == 14 || (Game.gameboard[row - 1][col]) == 24 || (Game.gameboard[row - 1][col]) == 13 || (Game.gameboard[row - 1][col]) == 23 || (Game.gameboard[row - 1][col]) == 11){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4 || (Game.gameboard[row + 1][col]) == 14 || (Game.gameboard[row + 1][col]) == 24 || (Game.gameboard[row + 1][col]) == 13 || (Game.gameboard[row + 1][col]) == 23){
+                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4 || (Game.gameboard[row + 1][col]) == 14 || (Game.gameboard[row + 1][col]) == 24 || (Game.gameboard[row + 1][col]) == 13 || (Game.gameboard[row + 1][col]) == 23 || (Game.gameboard[row + 1][col]) == 11){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4 || (Game.gameboard[row][col - 1]) == 14 || (Game.gameboard[row][col - 1]) == 24 || (Game.gameboard[row][col - 1]) == 13 || (Game.gameboard[row][col - 1]) == 23){
+                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4 || (Game.gameboard[row][col - 1]) == 14 || (Game.gameboard[row][col - 1]) == 24 || (Game.gameboard[row][col - 1]) == 13 || (Game.gameboard[row][col - 1]) == 23 || (Game.gameboard[row][col - 1]) == 11){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4 || (Game.gameboard[row][col + 1]) == 14 || (Game.gameboard[row][col + 1]) == 24 || (Game.gameboard[row][col + 1]) == 13 || (Game.gameboard[row][col + 1]) == 23){
+                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4 || (Game.gameboard[row][col + 1]) == 14 || (Game.gameboard[row][col + 1]) == 24 || (Game.gameboard[row][col + 1]) == 13 || (Game.gameboard[row][col + 1]) == 23 || (Game.gameboard[row][col + 1]) == 11){
                     check = true;
                 }
             }
@@ -310,22 +310,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 0){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5 || (Game.gameboard[row - 1][col]) == 15 || (Game.gameboard[row - 1][col]) == 25 || (Game.gameboard[row - 1][col]) == 13 || (Game.gameboard[row - 1][col]) == 23){
+                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5 || (Game.gameboard[row - 1][col]) == 15 || (Game.gameboard[row - 1][col]) == 25 || (Game.gameboard[row - 1][col]) == 13 || (Game.gameboard[row - 1][col]) == 23 || (Game.gameboard[row - 1][col]) == 12){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5 || (Game.gameboard[row + 1][col]) == 15 || (Game.gameboard[row + 1][col]) == 25 || (Game.gameboard[row + 1][col]) == 13 || (Game.gameboard[row + 1][col]) == 23){
+                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5 || (Game.gameboard[row + 1][col]) == 15 || (Game.gameboard[row + 1][col]) == 25 || (Game.gameboard[row + 1][col]) == 13 || (Game.gameboard[row + 1][col]) == 23 || (Game.gameboard[row + 1][col]) == 22){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5 || (Game.gameboard[row][col - 1]) == 15 || (Game.gameboard[row][col - 1]) == 25 || (Game.gameboard[row][col - 1]) == 13 || (Game.gameboard[row][col - 1]) == 23){
+                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5 || (Game.gameboard[row][col - 1]) == 15 || (Game.gameboard[row][col - 1]) == 25 || (Game.gameboard[row][col - 1]) == 13 || (Game.gameboard[row][col - 1]) == 23 || (Game.gameboard[row][col - 1]) == 22){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5 || (Game.gameboard[row][col + 1]) == 15 || (Game.gameboard[row][col + 1]) == 25 || (Game.gameboard[row][col + 1]) == 13 || (Game.gameboard[row][col + 1]) == 23){
+                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5 || (Game.gameboard[row][col + 1]) == 15 || (Game.gameboard[row][col + 1]) == 25 || (Game.gameboard[row][col + 1]) == 13 || (Game.gameboard[row][col + 1]) == 23 || (Game.gameboard[row][col + 1]) == 22){
                     check = true;
                 }
             }
