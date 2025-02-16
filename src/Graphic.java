@@ -249,7 +249,7 @@ public class Graphic implements ActionListener {
     /*
     Calculates the players' current score
      */
-    public void calculateScore() {
+    public static void calculateScore() {
         score = 1000 - Game.stepsTaken * 34;
         if(score > 1000){
             score = 1000;
