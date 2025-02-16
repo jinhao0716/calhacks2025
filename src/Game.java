@@ -27,6 +27,8 @@ public class Game
     public static int turn = 0;
     public static int stepsTaken = 0;
 
+    public static int[][] gameboard = Board.generateBoard(ROWS, COLUMNS);
+
     public static void main(String[] args)
     {
         //keeping track of player victories
@@ -34,7 +36,6 @@ public class Game
         boolean p2Victory = false;
 
         //create and fill the game board
-        int[][] gameboard = Board.generateBoard(ROWS, COLUMNS);
         Board.generateGoalIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
         Board.generateMidIslands(gameboard, XBORDER, ISLANDSIZE, BUFFER, ISLANDSNUMBER);
 
