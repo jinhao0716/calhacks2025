@@ -5,7 +5,11 @@ public class Game
     ///////KEY///////
     /// 1 = player 1 land
     /// 2 = player 2 land
+    /// 5 = player 1 goal
+    /// 4 = player 2 goal
     /// 3 = neutral middle island land
+    /// -3 = hazard
+    /// -2 = power up
     /// ab (a = player number, b = tile number)
 
     //stats
@@ -16,6 +20,9 @@ public class Game
     private static final int ISLANDSIZE = 2;
     private static final int BUFFER = 2;
     private static final int ISLANDSNUMBER = 2;
+    private static final int POWERUPSTRENGTH = 2;
+    private static final int SUPERPOWERUPSTRENGTH = -1000;
+    private static int steps = 0;
 
     public static void main(String[] args)
     {
@@ -25,7 +32,7 @@ public class Game
 
         //create and fill the game board
         int[][] gameboard = Board.generateBoard(ROWS, COLUMNS);
-        Board.generateStartEndIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
+        Board.generateGoalIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
         Board.generateMidIslands(gameboard, XBORDER, ISLANDSIZE, BUFFER, ISLANDSNUMBER);
 
         /////////graphic stuff///////
@@ -34,6 +41,12 @@ public class Game
 
     }
 
+    /**
+     * runs everything a player need to move
+     *
+     * @param board the board the player is moving on
+     * @param player the player doing the moving
+     */
     public static void play(int[][] board, int player)
     {
         //collect the player's position
@@ -45,16 +58,16 @@ public class Game
         //if not player 1 and using arrow keys, controls array will be filled with null
         if (player == 1)
         {
-            controls[0] = "W";
-            controls[1] = "A";
-            controls[2] = "S";
-            controls[3] = "D";
-        }else
-        {
             controls[0] = "I";
             controls[1] = "J";
             controls[2] = "K";
             controls[3] = "L";
+        }else
+        {
+            controls[0] = "W";
+            controls[1] = "A";
+            controls[2] = "S";
+            controls[3] = "D";
         }
 
         //keep track if they moved
@@ -65,7 +78,7 @@ public class Game
         {
             //collect the position they want to move to...
             int[] newPos = collectMove(player, curPos, controls);
-            moved = checkMove(board, newPos, player);
+            moved = checkMove(board, curPos, newPos, player);
         }while(!moved);
     }
 
@@ -100,19 +113,18 @@ public class Game
         }
 
         //store the coords in an array and return it
-        int[] coords = {playerX, playerY};
-        return coords;
+        return new int[]{playerX, playerY};
     }
 
     /**
      * determines the coordinates of a player's possible move
      *
      * @param player the player that is moving
-     * @param coords the current coordinates of the player, in [x, y] form
+     * @param curCoords the current coordinates of the player, in [x, y] form
      * @param controls the controls for the player that is moving (WASD or arrow keys)
      * @return an int array containing the new coords, [x, y]
      */
-    public static int[] collectMove(int player, int[] coords, String[] controls)
+    public static int[] collectMove(int player, int[] curCoords, String[] controls)
     {
         int playerNewX = -1;
         int playerNewY = -1;
@@ -140,26 +152,26 @@ public class Game
             //then see where they want to move
             if (move.equals(controls[0])) //if go up...
             {
-                playerNewX = coords[0];
-                playerNewY = coords[1] - 1;
+                playerNewX = curCoords[0];
+                playerNewY = curCoords[1] - 1;
                 moved = true;
             }
             else if (move.equals(controls[2])) //if go down...
             {
-                playerNewX = coords[0] - 1;
-                playerNewY = coords[1];
+                playerNewX = curCoords[0];
+                playerNewY = curCoords[1] + 1;
                 moved = true;
             }
             else if (move.equals(controls[1])) //if go left...
             {
-                playerNewX = coords[0];
-                playerNewY = coords[1] + 1;
+                playerNewX = curCoords[0] - 1;
+                playerNewY = curCoords[1];
                 moved = true;
             }
             else if (move.equals(controls[3])) //if go right...
             {
-                playerNewX = coords[0] + 1;
-                playerNewY = coords[1];
+                playerNewX = curCoords[0] + 1;
+                playerNewY = curCoords[1];
                 moved = true;
             }
             else //if the user enters invalid input...
@@ -168,38 +180,75 @@ public class Game
             }
         }while (!moved);
 
-        int[] newCoords = {playerNewX, playerNewY};
-        return  newCoords;
+        return new int[]{playerNewX, playerNewY};
     }
 
     /**
      * checks to see if a move is valid, and perform the move if so
      *
-     * @param board
-     * @param coords
-     * @param player
+     * @param board the board on which moving is happening
+     * @param curCoords the current position of the player
+     * @param newCoords the postion the player is trying to move to
+     * @param player the player doing the moving
      * @return
      */
-    public static boolean checkMove(int[][] board, int[] coords, int player)
+    public static boolean checkMove(int[][] board, int[] curCoords, int[] newCoords, int player)
     {
         //if any of the moves would go outside of the map, then instantly invalid
-        if (coords[0] < 0 || coords[1] < 1)
+        if (newCoords[0] < 0 || newCoords[1] < 1)
         {
             return false;
         }
 
-        //check if it's the tile they're trying to move onto is the same color as them (or a void)...
-        if (board[coords[1]][coords[0]] != player || board[coords[1]][coords[0]] != 0)
+        //check if it's the tile they're trying to move onto is the same color as them (or a void/hazard)...
+        if (board[newCoords[1]][newCoords[0]] != player  && board[newCoords[1]][newCoords[0]] != 0 && board[newCoords[1]][newCoords[0]] != -3)
         {
             //if it's not, then check to see if there is already a player on there (make sure tile # isn't double digits)
-            if (board[coords[1]][coords[0]] - 10 >= 0)
+            if (!(board[newCoords[1]][newCoords[0]] - 10 >= 0))
             {
-                //then move the player
-                board[coords[1]][coords[0]] += (player * 10);
+                //then check for power ups...
+                if (board[newCoords[1]][newCoords[0]] == -2)
+                {
+                    //if there are any pick it up and turn the tile back to normal
+                    board[newCoords[1]][newCoords[0]] = 3;
+                    steps -= POWERUPSTRENGTH;
+                }else if (board[newCoords[1]][newCoords[0]] == -2) //then check for SUPER power ups...
+                {
+                    //if there are any pick it up and turn the tile back to normal
+                    board[newCoords[1]][newCoords[0]] = 3;
+                    steps -= SUPERPOWERUPSTRENGTH;
+                }
+
+                //then move the player and reset the tile they were previously standing on
+                board[newCoords[1]][newCoords[0]] += (player * 10);
+                board[curCoords[1]][curCoords[0]] -= (player * 10);
+
+                return true;
             }
         }
 
-        //if reaching this point, then means player has been moved
-        return true;
+        //if reaching this point, then means player has not been moved
+        return false;
+    }
+
+    /**
+     * checks to see if a player has reached their goal island
+     *
+     * @param board the board on which the player is standing on
+     * @param curCoords the player's current coordinates
+     * @param player the player to be checked
+     * @return true if reached goal island, false if not
+     */
+    public static boolean goalReached(int[][] board, int[] curCoords, int player)
+    {
+        //check to see if the digits of the position (player + tile) sum up to 6...
+        if ((board[curCoords[1]][curCoords[0]] - 10*player) + player == 6)
+        {
+            //if they do, then it means that the player has successfully reached their goal island
+            return true;
+        }
+
+        //otherwise return false
+        return false;
     }
 }

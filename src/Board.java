@@ -2,7 +2,6 @@ import java.util.Random;
 
 public class Board
 {
-
     /**
      * creates an empty playing board (filled with 0's)
      *
@@ -38,38 +37,40 @@ public class Board
     }
 
     /**
-     * creates the start and end islands
+     * creates the start and end islands, also adds the two players to it
      *
      * @param board the playing board to add these islands to
      * @param xBorder the distance between the islands and the horizontal edges of the map
      * @param yBorder the distance between the islands and the vertical edges of the map
      * @param islandSize size of the island
      */
-    public static void generateStartEndIslands(int[][] board, int xBorder, int yBorder, int islandSize)
+    public static void generateGoalIslands(int[][] board, int xBorder, int yBorder, int islandSize)
     {
         //create instance of random class for number generation
         Random rand = new Random();
 
         //create random coordinates for the starting island, use island's top left corner to position
-        int startX = xBorder; //start island x pos is not randomized
-        int startY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize));
+        int p2goalX = xBorder; //start island x pos is not randomized
+        int p2goalY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize));
 
 
         //create random coordinates for the starting island, use island's top left corner to position
-        int endX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
-        int endY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize - 1));
-        System.out.println(endX);
-        System.out.println(endY);
+        int p1goalX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
+        int p1goalY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize - 1));
 
         //add in islands of appropriate size
         for (int x = 0; x < islandSize; x++)
         {
             for (int y = 0; y < islandSize; y++)
             {
-                board[startY + y][startX + x] = 1;
-                board[endY + y][endX + x] = 2;
+                board[p2goalY + y][p2goalX + x] = 4;
+                board[p1goalY + y][p1goalX + x] = 5;
             }
         }
+
+        //now add in the players
+        board[p2goalY][p2goalX] += 10;
+        board[p1goalY + islandSize - 1][p1goalX + islandSize - 1] += 20;
     }
 
     /**
@@ -107,9 +108,46 @@ public class Board
                 //and fill in each plot of island
                 for (int y = 0; y < height; y++)
                 {
-                    board[yPos + y][xPos + x] = 1;
+                    board[yPos + y][xPos + x] = generateBonuses(rand);
                 }
             }
+        }
+    }
+
+    /**
+     * generates either a hazard, a power up, or nothing at all
+     *
+     * @param rand Random object for probability
+     * @return 3 if nothing, -2 if power up, and -3 if hazard
+     */
+    public static int generateBonuses(Random rand)
+    {
+        /////////////////// PROBABILITY CHART ////////////////////////////
+        /// 60% nothing spawns
+        /// 30% hazard spawns
+        /// 9% power up spawns
+        /// 1% SUPER power up spawns
+        /////////////////// EFFECTS //////////////////////////////////////
+        /// nothing: nothing
+        /// hazard: uncrossable, acts as a wall
+        /// power up: decreases total step count
+
+        //use a random number to decide what spawns
+        int roll  = 1 + rand.nextInt(100);
+
+        //now create the appropriate tile
+        if (roll <= 60) //if nothing spawns...
+        {
+            return 3;
+        }else if (roll <= 90) //if hazard spawns...
+        {
+            return -3;
+        }else if (roll <= 99) //if power up spawns...
+        {
+            return -2;
+        }else //if SUPER power up spawns...
+        {
+            return -100;
         }
     }
 
