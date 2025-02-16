@@ -10,6 +10,7 @@ public class Game
     /// 3 = neutral middle island land
     /// -3 = hazard
     /// -2 = power up
+    /// -100 = SUPER power up
     /// ab (a = player number, b = tile number)
 
     //stats
