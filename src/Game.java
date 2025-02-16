@@ -42,24 +42,14 @@ public class Game
         /////////graphic stuff///////
         new Graphic(ROWS, COLUMNS);
 
+        //keep looping until both players reach the goal
         do
-        {
-            p1Victory = play(gameboard, 1);
-            p2Victory = play(gameboard, 2);
-            printArray(gameboard);
+        {   //players take turns moving
+            p1Victory = play(gameboard, turn + 1);
+            p2Victory = play(gameboard, turn + 1);
         }while(!p1Victory && !p2Victory);
-    }
 
-    public static void printArray(int[][] array)
-    {
-        for (int x = 0; x < array.length; x++)
-        {
-            System.out.println("");
-            for( int y = 0; y < array[0].length; y++)
-            {
-                System.out.print(array[x][y]);
-            }
-        }
+        Graphic.gameOver();
     }
 
     /**
@@ -77,7 +67,7 @@ public class Game
         //set the controls for the player
         String[] controls = new String[4];
 
-        //if not player 1 and using arrow keys, controls array will be filled with null
+        //gives each player their controls
         if (player == 1)
         {
             controls[0] = "W";
@@ -237,8 +227,16 @@ public class Game
             return false;
         }
 
+        int opposite = 1;
+
+        //check which color player can't walk on
+        if (player == 1)
+        {
+            opposite = 2;
+        }
+
         //check if it's the tile they're trying to move onto is the same color as them (or a void/hazard)...
-        if (board[newCoords[1]][newCoords[0]] != player  && board[newCoords[1]][newCoords[0]] != 0 && board[newCoords[1]][newCoords[0]] != -3)
+        if (board[newCoords[1]][newCoords[0]] != opposite  && board[newCoords[1]][newCoords[0]] != 0 && board[newCoords[1]][newCoords[0]] != -3)
         {
             //if it's not, then check to see if there is already a player on there (make sure tile # isn't double digits)
             if (!(board[newCoords[1]][newCoords[0]] - 10 >= 0))
