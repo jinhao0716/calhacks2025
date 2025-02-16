@@ -257,6 +257,7 @@ public class Graphic implements ActionListener {
         if (score < 0){
             score = 0;
         }
+        scoreLabel.setText("Score: " + score);
     }
 
     /*
@@ -373,7 +374,6 @@ public class Graphic implements ActionListener {
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
-                            scoreLabel.setText("Score: " + score);
                         }
                     }else if(Game.turn == 1){
                         if(checkAdjacent(i,j,1)){
@@ -385,7 +385,6 @@ public class Graphic implements ActionListener {
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
-                            scoreLabel.setText("Score: " + score);
                         }
                     }
                 }
