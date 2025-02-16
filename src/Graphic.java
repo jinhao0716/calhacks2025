@@ -16,7 +16,7 @@ public class Graphic implements ActionListener {
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JLabel turn = new JLabel("Red's Turn.", SwingConstants.CENTER);
-    private JLabel steps = new JLabel("Steps: " + GameRules.stepsTaken, SwingConstants.CENTER);
+    private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     //Colors
     private final Color white = new Color(255, 255, 255);
     private final Color red = new Color(200, 30, 0);
@@ -111,22 +111,22 @@ public class Graphic implements ActionListener {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (board[i][j].getModel().isRollover()) {
-                    if(GameRules.turn == 0){
+                    if(Game.turn == 0){
                         gameBoard[i][j] = 1;
                         updateBoard();
                         board[i][j].removeActionListener(this);
-                        GameRules.turn = 1;
+                        Game.turn = 1;
                         turn.setText("Blue's Turn.");
-                        GameRules.stepsTaken++;
-                        steps.setText("Steps: " + GameRules.stepsTaken);
-                    }else if(GameRules.turn == 1){
+                        Game.stepsTaken++;
+                        steps.setText("Steps: " + Game.stepsTaken);
+                    }else if(Game.turn == 1){
                         gameBoard[i][j] = 2;
                         updateBoard();
                         board[i][j].removeActionListener(this);
-                        GameRules.turn = 0;
+                        Game.turn = 0;
                         turn.setText("Red's Turn.");
-                        GameRules.stepsTaken++;
-                        steps.setText("Steps: " + GameRules.stepsTaken);
+                        Game.stepsTaken++;
+                        steps.setText("Steps: " + Game.stepsTaken);
                     }
                 }
             }
