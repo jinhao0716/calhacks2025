@@ -32,8 +32,7 @@ public class Game
     public static void main(String[] args)
     {
         //keeping track of player victories
-        boolean p1Victory = false;
-        boolean p2Victory = false;
+        boolean[] playerVictory = {false, false};
 
         //create and fill the game board
         Board.generateGoalIslands(gameboard, XBORDER, YBORDER, ISLANDSIZE);
@@ -42,12 +41,17 @@ public class Game
         /////////graphic stuff///////
         new Graphic(ROWS, COLUMNS);
 
+        int lastTurn = 1;
+
         //keep looping until both players reach the goal
         do
         {   //players take turns moving
-            p1Victory = play(gameboard, turn + 1);
-            p2Victory = play(gameboard, turn + 1);
-        }while(!p1Victory && !p2Victory);
+            if (lastTurn == turn) {
+                continue;
+            }
+
+            playerVictory[turn] = play(gameboard, turn + 1);
+        }while(!playerVictory[0] && !playerVictory[1]);
 
         Graphic.gameOver();
     }
@@ -217,12 +221,12 @@ public class Game
      * @param curCoords the current position of the player
      * @param newCoords the postion the player is trying to move to
      * @param player the player doing the moving
-     * @return
+     * @return true if the move has placed the player into the victory zone
      */
     public static boolean checkMove(int[][] board, int[] curCoords, int[] newCoords, int player)
     {
         //if any of the moves would go outside of the map, then instantly invalid
-        if (newCoords[0] < 0 || newCoords[1] < 1)
+        if (newCoords[0] < 0 || newCoords[1] < 0)
         {
             return false;
         }
