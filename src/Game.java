@@ -45,7 +45,7 @@ public class Game
         do
         {
             playerVictory[turn] = play(gameboard, turn + 1);
-        }while(!playerVictory[0] && !playerVictory[1]);
+        }while(!playerVictory[0] || !playerVictory[1]);
 
         Graphic.gameOver();
     }
@@ -245,19 +245,19 @@ public class Game
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
                     stepsTaken -= POWERUPSTRENGTH;
-                    Graphic.calculateScore();
                 }else if (board[newCoords[1]][newCoords[0]] == -100) //then check for SUPER power ups...
                 {
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
                     stepsTaken -= SUPERPOWERUPSTRENGTH;
                     Graphic.calculateScore();
-                    Graphic.updateBoard();
                 }
 
                 //then move the player and reset the tile they were previously standing on
                 board[newCoords[1]][newCoords[0]] += (player * 10);
                 board[curCoords[1]][curCoords[0]] -= (player * 10);
+
+                Graphic.calculateScore();
 
                 return true;
             }
