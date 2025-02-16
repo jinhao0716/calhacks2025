@@ -36,7 +36,7 @@ public class Graphic implements ActionListener {
         frame.setSize(2000,1000);
         //Sets the grid layout of the frame to the number of indicated rows and columns
         frame.setLayout(new BorderLayout());
-        frame.setTitle("Game");
+        frame.setTitle("BridgeGame");
 
         panel1.setLayout(new GridLayout(rows, columns));
 
@@ -86,6 +86,7 @@ public class Graphic implements ActionListener {
                 }
             }
         }
+
         //adds the buttons to the board
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -136,6 +137,74 @@ public class Graphic implements ActionListener {
 
     }
 
+    public boolean checkAdjacent(int row, int col, int turn) {
+        boolean check = false;
+
+        boolean up = true;
+        boolean down = true;
+        boolean left = true;
+        boolean right = true;
+        if ((row - 1) < 0){
+            up = false;
+        }
+        if ((row + 1) > (Game.gameboard.length - 1)){
+            down = false;
+        }
+        if ((col - 1) < 0){
+            left = false;
+        }
+        if ((col + 1) > (Game.gameboard[0].length - 1)){
+            right = false;
+        }
+
+        if(turn == 0){
+            if (up){
+                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5){
+                    check = true;
+                }
+            }
+            if (down){
+                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5){
+                    check = true;
+                }
+            }
+            if (left){
+                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5){
+                    check = true;
+                }
+            }
+            if (right){
+                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5){
+                    check = true;
+                }
+            }
+        }
+
+        if(turn == 1){
+            if (up){
+                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4){
+                    check = true;
+                }
+            }
+            if (down){
+                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4){
+                    check = true;
+                }
+            }
+            if (left){
+                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4){
+                    check = true;
+                }
+            }
+            if (right){
+                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4){
+                    check = true;
+                }
+            }
+        }
+        return check;
+    }
+
     //Effects of what button presses do
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -143,21 +212,25 @@ public class Graphic implements ActionListener {
             for (int j = 0; j < columns; j++) {
                 if (board[i][j].getModel().isRollover()) {
                     if(Game.turn == 0){
-                        Game.gameboard[i][j] = 1;
-                        updateBoard();
-                        board[i][j].removeActionListener(this);
-                        Game.turn = 1;
-                        turn.setText("Blue's Turn.");
-                        Game.stepsTaken++;
-                        steps.setText("Steps: " + Game.stepsTaken);
+                        if(checkAdjacent(i,j,0)){
+                            Game.gameboard[i][j] = 1;
+                            updateBoard();
+                            board[i][j].removeActionListener(this);
+                            Game.turn = 1;
+                            turn.setText("Blue's Turn.");
+                            Game.stepsTaken++;
+                            steps.setText("Steps: " + Game.stepsTaken);
+                        }
                     }else if(Game.turn == 1){
-                        Game.gameboard[i][j] = 2;
-                        updateBoard();
-                        board[i][j].removeActionListener(this);
-                        Game.turn = 0;
-                        turn.setText("Red's Turn.");
-                        Game.stepsTaken++;
-                        steps.setText("Steps: " + Game.stepsTaken);
+                        if(checkAdjacent(i,j,1)){
+                            Game.gameboard[i][j] = 2;
+                            updateBoard();
+                            board[i][j].removeActionListener(this);
+                            Game.turn = 0;
+                            turn.setText("Red's Turn.");
+                            Game.stepsTaken++;
+                            steps.setText("Steps: " + Game.stepsTaken);
+                        }
                     }
                 }
             }
