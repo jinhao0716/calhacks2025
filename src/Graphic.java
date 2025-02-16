@@ -10,12 +10,16 @@ public class Graphic implements ActionListener {
     //Global variables
     private int rows;
     private int columns;
+    private int score = 1000;
+    private String endText = "";
     private JButton[][] board;
     private JFrame frame = new JFrame();
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JLabel turn = new JLabel("Red's Turn.", SwingConstants.CENTER);
     private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
+    private JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
+    private JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
     //Colors
     private final Color white = new Color(255, 255, 255);
     private final Color red = new Color(170, 30, 0);
@@ -44,7 +48,8 @@ public class Graphic implements ActionListener {
         panel2.setPreferredSize(new Dimension(2000,50));
         turn.setFont(new Font("Arial", Font.PLAIN, 20));
         steps.setFont(new Font("Arial", Font.PLAIN, 20));
-        panel2.add(new JLabel(""));
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        panel2.add(scoreLabel);
         panel2.add(new JLabel(""));
         panel2.add(turn);
         panel2.add(new JLabel(""));
@@ -137,6 +142,16 @@ public class Graphic implements ActionListener {
 
     }
 
+    public void calculateScore() {
+        score = 1000 - Game.stepsTaken * 34;
+        if(score > 1000){
+            score = 1000;
+        }
+        if (score < 0){
+            score = 0;
+        }
+    }
+
     public boolean checkAdjacent(int row, int col, int turn) {
         boolean check = false;
 
@@ -205,6 +220,20 @@ public class Graphic implements ActionListener {
         return check;
     }
 
+    public void gameOver() {
+        if (score < 200){
+            endText = "Your Final Score: \n" + score + "\nBetter luck next time!";
+        }
+        if (score < 400){
+            endText = "Your Final Score: \n" + score + "\nNice Job!";
+        }
+        if (score < 650){
+            endText = "Your Final Score: \n" + score + "\nPerfect Victory!";
+        }
+        frame.remove(panel1);
+        frame.remove(panel2);
+        frame.add(endScreen);
+    }
     //Effects of what button presses do
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -220,6 +249,8 @@ public class Graphic implements ActionListener {
                             turn.setText("Blue's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
+                            calculateScore();
+                            scoreLabel.setText("Score: " + score);
                         }
                     }else if(Game.turn == 1){
                         if(checkAdjacent(i,j,1)){
@@ -230,6 +261,8 @@ public class Graphic implements ActionListener {
                             turn.setText("Red's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
+                            calculateScore();
+                            scoreLabel.setText("Score: " + score);
                         }
                     }
                 }
