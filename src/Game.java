@@ -22,7 +22,9 @@ public class Game
     private static final int ISLANDSNUMBER = 2;
     private static final int POWERUPSTRENGTH = 2;
     private static final int SUPERPOWERUPSTRENGTH = -1000;
-    private static int steps = 0;
+
+    public static int turn = 0;
+    public static int stepsTaken = 0;
 
     public static void main(String[] args)
     {
@@ -211,12 +213,12 @@ public class Game
                 {
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
-                    steps -= POWERUPSTRENGTH;
+                    stepsTaken -= POWERUPSTRENGTH;
                 }else if (board[newCoords[1]][newCoords[0]] == -2) //then check for SUPER power ups...
                 {
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
-                    steps -= SUPERPOWERUPSTRENGTH;
+                    stepsTaken -= SUPERPOWERUPSTRENGTH;
                 }
 
                 //then move the player and reset the tile they were previously standing on
