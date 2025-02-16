@@ -21,7 +21,7 @@ public class Game
     private static final int ISLANDSIZE = 2;
     private static final int BUFFER = 2;
     private static final int ISLANDSNUMBER = 6;
-    private static final int POWERUPSTRENGTH = 2;
+    private static final int POWERUPSTRENGTH = 3;
     private static final int SUPERPOWERUPSTRENGTH = -1000;
 
     public static int turn = 0;
@@ -41,15 +41,9 @@ public class Game
         /////////graphic stuff///////
         new Graphic(ROWS, COLUMNS);
 
-        int lastTurn = 1;
-
         //keep looping until both players reach the goal
         do
-        {   //players take turns moving
-            if (lastTurn == turn) {
-                continue;
-            }
-
+        {
             playerVictory[turn] = play(gameboard, turn + 1);
         }while(!playerVictory[0] && !playerVictory[1]);
 
@@ -251,11 +245,14 @@ public class Game
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
                     stepsTaken -= POWERUPSTRENGTH;
-                }else if (board[newCoords[1]][newCoords[0]] == -2) //then check for SUPER power ups...
+                    Graphic.calculateScore();
+                }else if (board[newCoords[1]][newCoords[0]] == -100) //then check for SUPER power ups...
                 {
                     //if there are any pick it up and turn the tile back to normal
                     board[newCoords[1]][newCoords[0]] = 3;
                     stepsTaken -= SUPERPOWERUPSTRENGTH;
+                    Graphic.calculateScore();
+                    Graphic.updateBoard();
                 }
 
                 //then move the player and reset the tile they were previously standing on
