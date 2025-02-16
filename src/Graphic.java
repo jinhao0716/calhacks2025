@@ -18,6 +18,7 @@ public class Graphic implements ActionListener {
     private static JFrame frame = new JFrame();
     private static JPanel panel1 = new JPanel();
     private static JPanel panel2 = new JPanel();
+    private static JPanel panel3 = new JPanel();
     private static JLabel turn = new JLabel("Blue's Turn.", SwingConstants.CENTER);
     private static JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     private static JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
@@ -68,6 +69,7 @@ public class Graphic implements ActionListener {
         turn.setFont(new Font("Arial", Font.PLAIN, 20));
         steps.setFont(new Font("Arial", Font.PLAIN, 20));
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        endScreen.setFont(new Font("Arial", Font.PLAIN, 40));
         panel2.add(scoreLabel);
         panel2.add(new JLabel(""));
         panel2.add(turn);
@@ -283,22 +285,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 0){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4){
+                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4 || (Game.gameboard[row - 1][col]) == 14 || (Game.gameboard[row - 1][col]) == 24){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4){
+                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4 || (Game.gameboard[row + 1][col]) == 14 || (Game.gameboard[row + 1][col]) == 24){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4){
+                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4 || (Game.gameboard[row][col - 1]) == 14 || (Game.gameboard[row][col - 1]) == 24){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4){
+                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4 || (Game.gameboard[row][col + 1]) == 14 || (Game.gameboard[row][col + 1]) == 24){
                     check = true;
                 }
             }
@@ -306,22 +308,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 1){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5){
+                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5 || (Game.gameboard[row - 1][col]) == 15 || (Game.gameboard[row - 1][col]) == 25){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5){
+                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5 || (Game.gameboard[row + 1][col]) == 15 || (Game.gameboard[row + 1][col]) == 25){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5){
+                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5 || (Game.gameboard[row][col - 1]) == 15 || (Game.gameboard[row][col - 1]) == 25){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5){
+                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5 || (Game.gameboard[row][col + 1]) == 15 || (Game.gameboard[row][col + 1]) == 25){
                     check = true;
                 }
             }
@@ -333,18 +335,25 @@ public class Graphic implements ActionListener {
     Displays the end game screen
      */
     public static void gameOver() {
-        if (score < 200){
-            endText = "Your Final Score: \n" + score + "\nBetter luck next time!";
+        String temp = "";
+        if (score <= 200){
+            temp = "Your Final Score: \n" + score + "\nBetter luck next time!";
+            endText = "<html>" + temp.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>";
         }
-        if (score < 400){
-            endText = "Your Final Score: \n" + score + "\nNice Job!";
+        if (score < 400 && score > 200){
+            temp = "Your Final Score: \n" + score + "\nNice Job!";
+            endText = "<html>" + temp.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>";
         }
-        if (score < 650){
-            endText = "Your Final Score: \n" + score + "\nPerfect Victory!";
+        if (score > 650){
+            temp = "Your Final Score: \n" + score + "\nPerfect Victory!";
+            endText = "<html>" + temp.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>";
         }
+        endScreen.setText(endText);
         frame.remove(panel1);
         frame.remove(panel2);
-        frame.add(endScreen);
+        endScreen.setVerticalAlignment(SwingConstants.CENTER);
+        panel3.add(endScreen);
+        frame.add(panel3);
     }
     /*
     Makes changes based on what tile is clicked
