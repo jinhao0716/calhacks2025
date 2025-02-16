@@ -20,7 +20,7 @@ public class Game
     private static final int YBORDER = 1;
     private static final int ISLANDSIZE = 2;
     private static final int BUFFER = 2;
-    private static final int ISLANDSNUMBER = 2;
+    private static final int ISLANDSNUMBER = 6;
     private static final int POWERUPSTRENGTH = 2;
     private static final int SUPERPOWERUPSTRENGTH = -1000;
 
