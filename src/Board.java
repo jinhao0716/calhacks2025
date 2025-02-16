@@ -123,8 +123,8 @@ public class Board
     public static int generateBonuses(Random rand)
     {
         /////////////////// PROBABILITY CHART ////////////////////////////
-        /// 60% nothing spawns
-        /// 30% hazard spawns
+        /// 50% nothing spawns
+        /// 40% hazard spawns
         /// 9% power up spawns
         /// 1% SUPER power up spawns
         /////////////////// EFFECTS //////////////////////////////////////
@@ -136,7 +136,7 @@ public class Board
         int roll  = 1 + rand.nextInt(100);
 
         //now create the appropriate tile
-        if (roll <= 60) //if nothing spawns...
+        if (roll <= 50) //if nothing spawns...
         {
             return 3;
         }else if (roll <= 90) //if hazard spawns...
