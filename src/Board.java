@@ -127,25 +127,29 @@ public class Board
         /////////////////// PROBABILITY CHART ////////////////////////////
         /// 60% nothing spawns
         /// 30% hazard spawns
-        /// 10% power up spawns
+        /// 9% power up spawns
+        /// 1% SUPER power up spawns
         /////////////////// EFFECTS //////////////////////////////////////
         /// nothing: nothing
         /// hazard: uncrossable, acts as a wall
         /// power up: decreases total step count
 
         //use a random number to decide what spawns
-        int roll  = 1 + rand.nextInt(10);
+        int roll  = 1 + rand.nextInt(100);
 
         //now create the appropriate tile
-        if (roll <= 6) //if nothing spawns...
+        if (roll <= 60) //if nothing spawns...
         {
             return 3;
-        }else if (roll <= 9) //if hazard spawns...
+        }else if (roll <= 90) //if hazard spawns...
         {
             return -3;
-        }else //if hazard spawns...
+        }else if (roll <= 99) //if power up spawns...
         {
             return -2;
+        }else //if SUPER power up spawns...
+        {
+            return -100;
         }
     }
 

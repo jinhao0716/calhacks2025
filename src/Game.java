@@ -6,6 +6,8 @@ public class Game
     /// 1 = player 1 land
     /// 2 = player 2 land
     /// 3 = neutral middle island land
+    /// -3 = hazard
+    /// -2 = power up
     /// ab (a = player number, b = tile number)
 
     //stats
@@ -16,6 +18,9 @@ public class Game
     private static final int ISLANDSIZE = 2;
     private static final int BUFFER = 2;
     private static final int ISLANDSNUMBER = 2;
+    private static final int POWERUPSTRENGTH = 2;
+    private static final int SUPERPOWERUPSTRENGTH = -1000;
+    private static int steps = 0;
 
     public static void main(String[] args)
     {
@@ -34,6 +39,12 @@ public class Game
 
     }
 
+    /**
+     * runs everything a player need to move
+     *
+     * @param board the board the player is moving on
+     * @param player the player doing the moving
+     */
     public static void play(int[][] board, int player)
     {
         //collect the player's position
@@ -188,12 +199,25 @@ public class Game
             return false;
         }
 
-        //check if it's the tile they're trying to move onto is the same color as them (or a void)...
-        if (board[coords[1]][coords[0]] != player || board[coords[1]][coords[0]] != 0)
+        //check if it's the tile they're trying to move onto is the same color as them (or a void/hazard)...
+        if (board[coords[1]][coords[0]] != player || board[coords[1]][coords[0]] != 0 || board[coords[1]][coords[0]] != -3)
         {
             //if it's not, then check to see if there is already a player on there (make sure tile # isn't double digits)
-            if (board[coords[1]][coords[0]] - 10 >= 0)
+            if (!(board[coords[1]][coords[0]] - 10 >= 0))
             {
+                //then check for power ups...
+                if (board[coords[1]][coords[0]] == -2)
+                {
+                    //if there are any pick it up and turn the tile back to normal
+                    board[coords[1]][coords[0]] = 3;
+                    steps -= POWERUPSTRENGTH;
+                }else if (board[coords[1]][coords[0]] == -2) //then check for SUPER power ups...
+                {
+                    //if there are any pick it up and turn the tile back to normal
+                    board[coords[1]][coords[0]] = 3;
+                    steps -= SUPERPOWERUPSTRENGTH;
+                }
+
                 //then move the player
                 board[coords[1]][coords[0]] += (player * 10);
             }
