@@ -2,7 +2,6 @@ import java.util.Random;
 
 public class Board
 {
-
     /**
      * creates an empty playing board (filled with 0's)
      *
@@ -38,7 +37,7 @@ public class Board
     }
 
     /**
-     * creates the start and end islands
+     * creates the start and end islands, also adds the two players to it
      *
      * @param board the playing board to add these islands to
      * @param xBorder the distance between the islands and the horizontal edges of the map
@@ -70,6 +69,10 @@ public class Board
                 board[endY + y][endX + x] = 2;
             }
         }
+
+        //now add in the players
+        board[startY][startX] += 20;
+        board[endY + islandSize - 1][endX + islandSize - 1] += 10;
     }
 
     /**
@@ -107,7 +110,7 @@ public class Board
                 //and fill in each plot of island
                 for (int y = 0; y < height; y++)
                 {
-                    board[yPos + y][xPos + x] = 1;
+                    board[yPos + y][xPos + x] = 3;
                 }
             }
         }
