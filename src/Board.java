@@ -57,22 +57,20 @@ public class Board
         //create random coordinates for the starting island, use island's top left corner to position
         int endX = boardLength(board) - xBorder - islandSize; //end island x pos is not randomized
         int endY = yBorder + rand.nextInt(boardHeight(board) - (2*yBorder + islandSize - 1));
-        System.out.println(endX);
-        System.out.println(endY);
 
         //add in islands of appropriate size
         for (int x = 0; x < islandSize; x++)
         {
             for (int y = 0; y < islandSize; y++)
             {
-                board[startY + y][startX + x] = 1;
-                board[endY + y][endX + x] = 2;
+                board[startY + y][startX + x] = 2;
+                board[endY + y][endX + x] = 1;
             }
         }
 
         //now add in the players
-        board[startY][startX] += 20;
-        board[endY + islandSize - 1][endX + islandSize - 1] += 10;
+        board[startY][startX] += 10;
+        board[endY + islandSize - 1][endX + islandSize - 1] += 20;
     }
 
     /**
