@@ -19,11 +19,14 @@ public class Graphic implements ActionListener {
     private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     //Colors
     private final Color white = new Color(255, 255, 255);
-    private final Color red = new Color(200, 30, 0);
-    private final Color blue = new Color(0, 0, 220);
-    private final Color brown = new Color(150, 75, 0);
+    private final Color red = new Color(170, 30, 0);
+    private final Color redGoal = new Color(255, 30, 0);
+    private final Color blue = new Color(0, 0, 170);
+    private final Color blueGoal = new Color(0, 0, 255);
     private final Color yellow = new Color(200, 200, 0);
     private final Color grey = new Color(128, 128, 128);
+    private final Color green = new Color(0, 128, 0);
+    private final Color black = new Color(0, 0, 0);
 
     public Graphic(int rows, int columns, int[][] gameBoard) {
         this.rows = rows;
@@ -65,6 +68,21 @@ public class Graphic implements ActionListener {
                 }else if(gameBoard[i][j] == 3) {
                     board[i][j].setBackground(grey);
                     board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(gameBoard[i][j] == 4) {
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(gameBoard[i][j] == 5) {
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
+                }else if(gameBoard[i][j] == -2){
+                    board[i][j].setBackground(green);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(green));
+                }else if(gameBoard[i][j] == -3){
+                    board[i][j].setBackground(black);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(black));
+                }else if(gameBoard[i][j] == -100){
+                    board[i][j].setBackground(yellow);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(yellow));
                 }else{
                     board[i][j].setBackground(white);
                 }
@@ -96,6 +114,21 @@ public class Graphic implements ActionListener {
                 }else if(gameBoard[i][j] == 3) {
                     board[i][j].setBackground(grey);
                     board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(gameBoard[i][j] == 4) {
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(gameBoard[i][j] == 5) {
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
+                }else if(gameBoard[i][j] == -2){
+                    board[i][j].setBackground(green);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(green));
+                }else if(gameBoard[i][j] == -3){
+                    board[i][j].setBackground(black);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(black));
+                }else if(gameBoard[i][j] == -100){
+                    board[i][j].setBackground(yellow);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(yellow));
                 }else{
                     board[i][j].setBackground(white);
                 }
