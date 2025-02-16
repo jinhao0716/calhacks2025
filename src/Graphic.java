@@ -332,7 +332,7 @@ public class Graphic implements ActionListener {
     /*
     Displays the end game screen
      */
-    public void gameOver() {
+    public static void gameOver() {
         if (score < 200){
             endText = "Your Final Score: \n" + score + "\nBetter luck next time!";
         }
