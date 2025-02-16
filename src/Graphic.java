@@ -172,27 +172,35 @@ public class Graphic implements ActionListener {
                 if(Game.gameboard[i][j] == 0) {
                     board[i][j].setBackground(white);
                 }else if(Game.gameboard[i][j] == 1){
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(red);
                     board[i][j].setBorder(BorderFactory.createLineBorder(red));
                 }else if(Game.gameboard[i][j] == 2) {
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(blue);
                     board[i][j].setBorder(BorderFactory.createLineBorder(blue));
                 }else if(Game.gameboard[i][j] == 3) {
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(grey);
                     board[i][j].setBorder(BorderFactory.createLineBorder(grey));
                 }else if(Game.gameboard[i][j] == 4) {
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(blueGoal);
                     board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
                 }else if(Game.gameboard[i][j] == 5) {
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(redGoal);
                     board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
                 }else if(Game.gameboard[i][j] == -2){
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(green);
                     board[i][j].setBorder(BorderFactory.createLineBorder(green));
                 }else if(Game.gameboard[i][j] == -3){
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(black);
                     board[i][j].setBorder(BorderFactory.createLineBorder(black));
                 }else if(Game.gameboard[i][j] == -100){
+                    board[i][j].setIcon(null);
                     board[i][j].setBackground(yellow);
                     board[i][j].setBorder(BorderFactory.createLineBorder(yellow));
                 }else if(Game.gameboard[i][j] == 11){
