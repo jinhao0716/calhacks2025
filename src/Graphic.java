@@ -18,7 +18,7 @@ public class Graphic implements ActionListener {
     private JFrame frame = new JFrame();
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
-    private JLabel turn = new JLabel("Red's Turn.", SwingConstants.CENTER);
+    private JLabel turn = new JLabel("Blue's Turn.", SwingConstants.CENTER);
     private JLabel steps = new JLabel("Steps: " + Game.stepsTaken, SwingConstants.CENTER);
     private JLabel scoreLabel = new JLabel("Score: " + score, SwingConstants.CENTER);
     private JLabel endScreen = new JLabel(endText, SwingConstants.CENTER);
@@ -26,14 +26,16 @@ public class Graphic implements ActionListener {
     Colors
      */
     private final Color white = new Color(255, 255, 255);
-    private final Color red = new Color(170, 30, 0);
-    private final Color redGoal = new Color(255, 30, 0);
-    private final Color blue = new Color(0, 0, 170);
+    private final Color red = new Color(170, 0, 0);
+    private final Color redGoal = new Color(255, 30, 50);
+    private final Color blue = new Color(0, 30, 170);
     private final Color blueGoal = new Color(0, 0, 255);
     private final Color yellow = new Color(250, 250, 0);
     private final Color grey = new Color(128, 128, 128);
     private final Color green = new Color(0, 128, 0);
     private final Color black = new Color(0, 0, 0);
+    private final ImageIcon player1 = new ImageIcon("PlayerImages/player1.png");
+    private final ImageIcon player2 = new ImageIcon("PlayerImages/player2.png");
 
     public Graphic(int rows, int columns) {
         this.rows = rows;
@@ -106,6 +108,38 @@ public class Graphic implements ActionListener {
                 }else if(Game.gameboard[i][j] == -100){
                     board[i][j].setBackground(yellow);
                     board[i][j].setBorder(BorderFactory.createLineBorder(yellow));
+                }else if(Game.gameboard[i][j] == 11){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(red);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(red));
+                }else if(Game.gameboard[i][j] == 13){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(grey);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(Game.gameboard[i][j] == 14){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(Game.gameboard[i][j] == 15){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
+                }else if(Game.gameboard[i][j] == 22){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(blue);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blue));
+                }else if(Game.gameboard[i][j] == 23){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(grey);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(Game.gameboard[i][j] == 24){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(Game.gameboard[i][j] == 25){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
                 }else{
                     board[i][j].setBackground(white);
                 }
@@ -161,6 +195,38 @@ public class Graphic implements ActionListener {
                 }else if(Game.gameboard[i][j] == -100){
                     board[i][j].setBackground(yellow);
                     board[i][j].setBorder(BorderFactory.createLineBorder(yellow));
+                }else if(Game.gameboard[i][j] == 11){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(red);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(red));
+                }else if(Game.gameboard[i][j] == 13){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(grey);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(Game.gameboard[i][j] == 14){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(Game.gameboard[i][j] == 15){
+                    board[i][j].setIcon(player1);
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
+                }else if(Game.gameboard[i][j] == 22){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(blue);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blue));
+                }else if(Game.gameboard[i][j] == 23){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(grey);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(grey));
+                }else if(Game.gameboard[i][j] == 24){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(blueGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(blueGoal));
+                }else if(Game.gameboard[i][j] == 25){
+                    board[i][j].setIcon(player2);
+                    board[i][j].setBackground(redGoal);
+                    board[i][j].setBorder(BorderFactory.createLineBorder(redGoal));
                 }else{
                     board[i][j].setBackground(white);
                 }
@@ -209,22 +275,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 0){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5){
+                if((Game.gameboard[row - 1][col]) == 1 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5){
+                if((Game.gameboard[row + 1][col]) == 1 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5){
+                if((Game.gameboard[row][col - 1]) == 1 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5){
+                if((Game.gameboard[row][col + 1]) == 1 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4){
                     check = true;
                 }
             }
@@ -232,22 +298,22 @@ public class Graphic implements ActionListener {
 
         if(turn == 1){
             if (up){
-                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 4){
+                if((Game.gameboard[row - 1][col]) == 2 || (Game.gameboard[row - 1][col]) == 3 || (Game.gameboard[row - 1][col]) == 5){
                     check = true;
                 }
             }
             if (down){
-                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 4){
+                if((Game.gameboard[row + 1][col]) == 2 || (Game.gameboard[row + 1][col]) == 3 || (Game.gameboard[row + 1][col]) == 5){
                     check = true;
                 }
             }
             if (left){
-                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 4){
+                if((Game.gameboard[row][col - 1]) == 2 || (Game.gameboard[row][col - 1]) == 3 || (Game.gameboard[row][col - 1]) == 5){
                     check = true;
                 }
             }
             if (right){
-                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 4){
+                if((Game.gameboard[row][col + 1]) == 2 || (Game.gameboard[row][col + 1]) == 3 || (Game.gameboard[row][col + 1]) == 5){
                     check = true;
                 }
             }
@@ -286,7 +352,7 @@ public class Graphic implements ActionListener {
                             updateBoard();
                             board[i][j].removeActionListener(this);
                             Game.turn = 1;
-                            turn.setText("Blue's Turn.");
+                            turn.setText("Red's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
@@ -298,7 +364,7 @@ public class Graphic implements ActionListener {
                             updateBoard();
                             board[i][j].removeActionListener(this);
                             Game.turn = 0;
-                            turn.setText("Red's Turn.");
+                            turn.setText("Blue's Turn.");
                             Game.stepsTaken++;
                             steps.setText("Steps: " + Game.stepsTaken);
                             calculateScore();
